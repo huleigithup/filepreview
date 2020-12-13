@@ -22,7 +22,6 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- *
  * @author yudian-it
  * @date 2017/12/1
  */
@@ -48,7 +47,7 @@ public class FileController {
         int winSep = fileName.lastIndexOf('\\');
         // Cut off at latest possible point
         int pos = (Math.max(winSep, unixSep));
-        if (pos != -1)  {
+        if (pos != -1) {
             fileName = fileName.substring(pos + 1);
         }
         // 判断是否存在同名文件
@@ -60,7 +59,7 @@ public class FileController {
             outFile.mkdirs();
         }
         logger.info("上传文件：{}", fileDir + demoPath + fileName);
-        try(InputStream in = file.getInputStream(); OutputStream out = new FileOutputStream(fileDir + demoPath + fileName)) {
+        try (InputStream in = file.getInputStream(); OutputStream out = new FileOutputStream(fileDir + demoPath + fileName)) {
             StreamUtils.copy(in, out);
             return new ObjectMapper().writeValueAsString(new ReturnResponse<String>(0, "SUCCESS", null));
         } catch (IOException e) {

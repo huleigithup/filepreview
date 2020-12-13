@@ -73,7 +73,7 @@ public class OnlinePreviewController {
         String[] imgs = decodedUrl.split("\\|");
         List imgurls = Arrays.asList(imgs);
         model.addAttribute("imgurls", imgurls);
-        model.addAttribute("currentUrl",decodedCurrentUrl);
+        model.addAttribute("currentUrl", decodedCurrentUrl);
         return "picture";
     }
 
@@ -81,7 +81,7 @@ public class OnlinePreviewController {
      * 根据url获取文件内容
      * 当pdfjs读取存在跨域问题的文件时将通过此接口读取
      *
-     * @param urlPath url
+     * @param urlPath  url
      * @param response response
      */
     @RequestMapping(value = "/getCorsFile", method = RequestMethod.GET)
@@ -97,6 +97,7 @@ public class OnlinePreviewController {
 
     /**
      * 通过api接口入队
+     *
      * @param url 请编码后在入队
      */
     @RequestMapping("/addTask")
@@ -105,6 +106,14 @@ public class OnlinePreviewController {
         logger.info("添加转码队列url：{}", url);
         cacheService.addQueueTask(url);
         return "success";
+    }
+
+    @RequestMapping("/test")
+    @ResponseBody
+    public String test(HttpServletRequest request) {
+        String scheme = request.getScheme();
+        logger.info("添加转码队列url：{}", scheme);
+        return "success,scheme==>" +scheme;
     }
 
 }
